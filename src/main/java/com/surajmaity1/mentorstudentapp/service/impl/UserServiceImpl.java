@@ -75,7 +75,15 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
         Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName("ROLE_STUDENT").get();
+        Role userRole;
+
+        if (user.getUsername().contains("mentor")){
+            userRole = roleRepository.findByName("ROLE_MENTOR").get();
+        }
+        else {
+            userRole = roleRepository.findByName("ROLE_STUDENT").get();
+        }
+
         roles.add(userRole);
         user.setRoles(roles);
 

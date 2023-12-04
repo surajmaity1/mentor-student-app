@@ -12,12 +12,16 @@ public class RecommendStudent {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "date")
-    private String date;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "mentor_id")
-    private Long mentorId;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "recommendation_text", columnDefinition = "TEXT")
+    private String recommendationText;
+
+    @Column(name = "shareable_link")
+    private String shareableLink;
+
 }
