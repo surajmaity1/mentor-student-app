@@ -2,16 +2,18 @@ package com.surajmaity1.mentorstudentapp.security;
 
 import com.surajmaity1.mentorstudentapp.entity.User;
 import com.surajmaity1.mentorstudentapp.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-@Qualifier("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
@@ -26,10 +28,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
 
-        return new org.springframework.security.core
-                .userdetails.User(user.getEmail(),
+        Set<GrantedAuthority> authorities = user
+                .getRoles()
+                .stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toSet());
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
-                new ArrayList<>()
-        );
+                authorities);
     }
 }
