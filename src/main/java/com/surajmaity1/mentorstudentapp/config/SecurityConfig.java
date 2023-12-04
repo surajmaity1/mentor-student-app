@@ -50,8 +50,9 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         //authorize.anyRequest().authenticated()
-                        authorize.requestMatchers(HttpMethod.GET, "/mentor-student/**").permitAll()
-                                .requestMatchers("/mentor-student/auth/**").permitAll()
+                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                .requestMatchers("/api/student/auth/**",
+                                        "/api/mentor/auth/**").permitAll()
                                 .anyRequest().authenticated()
 
                 ).exceptionHandling( exception -> exception

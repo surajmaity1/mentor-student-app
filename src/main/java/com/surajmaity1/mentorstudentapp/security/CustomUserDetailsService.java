@@ -2,6 +2,7 @@ package com.surajmaity1.mentorstudentapp.security;
 
 import com.surajmaity1.mentorstudentapp.entity.User;
 import com.surajmaity1.mentorstudentapp.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
+@Qualifier("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
