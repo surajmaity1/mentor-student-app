@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/review")
+@RequestMapping("/api/reviews")
 public class ReviewController {
     private ReviewService reviewService;
 
@@ -28,4 +28,7 @@ public class ReviewController {
         String response = reviewService.postReview(email, reviewRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+//    @GetMapping
+//    public
 }
